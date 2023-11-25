@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loxone Lighting Control Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            margin: 20px;
+        }
+
+        #dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .tile {
+            border: 1px solid #ccc;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+       .input-container {
+       display: flex;
+       flex-direction: column;
+       margin-bottom: 20px;
+       }
+
+
+      label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      }
+
+     input {
+     padding: 10px;
+     margin: 5px 0;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     width: 100%;
+     box-sizing: border-box;
+}
+
+
+#iconUpload {
+    
+}
+
+#uploadLabel {
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 600px) {
+    .input-container {
+        width: 100%;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <h1>Loxone Lighting Control Dashboard</h1>
+    
+    <div>
+        <label for="miniserverAddress">Miniserver Address:</label>
+        <input type="text" id="miniserverAddress" placeholder="Enter Miniserver Address">
+
+        <label for="controllerName">Lighting Controller:</label>
+        <input type="text" id="controllerName" placeholder="Enter Lighting Controller Name">
+
+    
+        <label for="iconUpload">Upload Icon:</label>
+        <input type="file" id="iconUpload" accept="image/*">
+    </div>
+
+    <div id="dashboard"></div>
+
+    <script>
+        // Function to toggle the lighting circuit
+        function toggleLighting(controllerName) {
+            // Implement the API call to toggle the lighting circuit using the provided documentation
+            console.log(`Toggle lighting for controller: ${controllerName}`);
+        }
+
+        // Function to create a tile on the dashboard
+        function createTile(controllerName, iconSrc) {
+            const tile = document.createElement('div');
+            tile.className = 'tile';
+            tile.innerHTML = `
+                <img src="${iconSrc}" alt="${controllerName} Icon" style="max-width: 100px; max-height: 100px;">
+                <h3>${controllerName}</h3>
+            `;
+            tile.addEventListener('click', () => toggleLighting(controllerName));
+            return tile;
+        }
+
+        // Function to update the dashboard with tiles
+        function updateDashboard() {
+            const miniserverAddress = document.getElementById('miniserverAddress').value;
+            const controllerName = document.getElementById('controllerName').value;
+            const iconUpload = document.getElementById('iconUpload');
+            const iconSrc = iconUpload.files.length > 0 ? URL.createObjectURL(iconUpload.files[0]) : '';
+
+            const dashboard = document.getElementById('dashboard');
+            dashboard.innerHTML = '';
+
+            const tile = createTile(controllerName, iconSrc);
+            dashboard.appendChild(tile);
+        }
+
+        // Event listener for the icon upload input
+        document.getElementById('iconUpload').addEventListener('change', updateDashboard);
+
+        // Event listener for the address and controller inputs
+        document.getElementById('miniserverAddress').addEventListener('input', updateDashboard);
+        document.getElementById('controllerName').addEventListener('input', updateDashboard);
+    </script>
+</body>
+</html>
