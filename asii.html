@@ -62,7 +62,6 @@
     text-align: center;
 }
 
-/* Responsive styling for smaller screens */
 @media (max-width: 600px) {
     .input-container {
         width: 100%;
@@ -90,13 +89,9 @@
     <div id="dashboard"></div>
 
     <script>
-        // Function to toggle the lighting circuit
         function toggleLighting(controllerName) {
-            // Implement the API call to toggle the lighting circuit using the provided documentation
             console.log(`Toggle lighting for controller: ${controllerName}`);
         }
-
-        // Function to create a tile on the dashboard
         function createTile(controllerName, iconSrc) {
             const tile = document.createElement('div');
             tile.className = 'tile';
@@ -108,7 +103,6 @@
             return tile;
         }
 
-        // Function to update the dashboard with tiles
         function updateDashboard() {
             const miniserverAddress = document.getElementById('miniserverAddress').value;
             const controllerName = document.getElementById('controllerName').value;
@@ -121,11 +115,7 @@
             const tile = createTile(controllerName, iconSrc);
             dashboard.appendChild(tile);
         }
-
-        // Event listener for the icon upload input
         document.getElementById('iconUpload').addEventListener('change', updateDashboard);
-
-        // Event listener for the address and controller inputs
         document.getElementById('miniserverAddress').addEventListener('input', updateDashboard);
         document.getElementById('controllerName').addEventListener('input', updateDashboard);
     </script>
